@@ -1,0 +1,112 @@
+/*
+ * ===========================================
+ * 1. Global Styles & Typography (Optional)
+ * ===========================================
+ */
+/* ใช้ฟอนต์ที่สวยงามและรองรับภาษาไทย */
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap');
+
+body {
+    /* กำหนดฟอนต์หลักทั้งโปรเจกต์ */
+    font-family: 'Prompt', sans-serif;
+    background-color: #f5f5f5; /* สีพื้นหลังอ่อน ๆ */
+}
+
+/*
+ * ===========================================
+ * 2. Login Page Specific Styles
+ * (สำหรับไฟล์ pages/index.vue)
+ * ===========================================
+ */
+
+.login-container {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    /* อย่าลืมเปลี่ยนชื่อไฟล์รูปภาพนี้เป็นชื่อรูปภาพของคุณ */
+    background-image: url('/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    /* ใช้ fixed เพื่อให้พื้นหลังอยู่กับที่เมื่อมีการเลื่อน (ถ้ามี) */
+    background-attachment: fixed;
+    z-index: 1;
+}
+
+/* โอเวอร์เลย์ (Overlay) เพื่อเพิ่ม Contrast ระหว่างพื้นหลังกับฟอร์ม */
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* สีม่วงเข้มโปร่งแสง (หรือสีที่คุณชอบ) */
+    background-color: rgba(63, 81, 181, 0.7); 
+    z-index: -1;
+}
+
+.login-card {
+    /* Card มีความโปร่งแสงเล็กน้อย ดูสวยงาม */
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px); /* เพิ่มความเบลอให้พื้นหลังที่ทะลุมา */
+    border-radius: 20px !important; /* มุมโค้งมนมากขึ้น */
+    z-index: 10;
+    /* เพิ่มเงาที่ดูนุ่มนวลและลอยเด่น */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important; 
+}
+
+/* ปรับแต่งหัวข้อ */
+.login-card .v-card-title {
+    color: #3f51b5; /* สี Primary */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/*
+ * ===========================================
+ * 3. Animation Styles (Fade-Zoom Transition)
+ * ===========================================
+ */
+
+/* Transition สำหรับการเปลี่ยนจากฟอร์มไปสู่หน้าสำเร็จ */
+.fade-enter-active, .fade-leave-active {
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* ใช้ Easing Function ที่ดูสวยงาม */
+}
+
+/* สถานะเริ่มต้นขององค์ประกอบที่กำลังจะเข้ามา (success card) */
+.fade-enter-from {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+}
+
+/* สถานะสิ้นสุดขององค์ประกอบที่กำลังจะออกไป (login form) */
+.fade-leave-to {
+    opacity: 0;
+    transform: scale(1.1) translateY(-20px);
+}
+
+/*
+ * ===========================================
+ * 4. Success Card Animation (ตอนเข้าสู่ระบบสำเร็จ)
+ * ===========================================
+ */
+.success-card .v-icon {
+    /* Animation การเต้นของไอคอนเมื่อสำเร็จ */
+    animation: bounce-in 1s;
+}
+
+@keyframes bounce-in {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    75% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+/* เพิ่มการหมุนเล็กน้อยให้ Progress Circular ดูน่าสนใจขึ้น */
+.success-card .v-progress-circular {
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

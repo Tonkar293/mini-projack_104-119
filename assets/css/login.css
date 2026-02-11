@@ -1,0 +1,157 @@
+/* ================= CONTAINERS & BG ================= */
+.login-container {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    background-image: url('/images/login-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+    font-family: 'Outfit', 'Kanit', sans-serif;
+}
+.login-container::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px); z-index: 0;
+}
+.noise-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    opacity: 0.04; z-index: 1; pointer-events: none;
+}
+.animated-bg-shape {
+    position: absolute; border-radius: 50%; filter: blur(90px); z-index: 0; opacity: 0.25;
+    animation: floating 10s ease-in-out infinite alternate;
+}
+.shape-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, #4f46e5, transparent); }
+.shape-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: radial-gradient(circle, #06b6d4, transparent); animation-delay: -5s; }
+@keyframes floating { 0% { transform: translate(0, 0); } 100% { transform: translate(30px, 50px); } }
+
+/* ================= LOGIN GROUP ================= */
+.login-group { position: relative; display: flex; justify-content: center; align-items: center; }
+.neon-outer-glow {
+    position: absolute; top: -10%; left: -10%; width: 120%; height: 120%;
+    animation: rotate-border 6s linear infinite; filter: blur(60px); opacity: 0.7;
+    z-index: -1; transition: background 1s ease;
+}
+
+/* ================= WRAPPER ================= */
+.login-wrapper {
+    position: relative; padding: 3px; border-radius: 35px; overflow: hidden; display: flex; z-index: 10;
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.neon-border-line {
+    position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    animation: rotate-border 6s linear infinite; z-index: -1; transition: background 1.2s ease; will-change: transform; 
+}
+.neon-glow-blur {
+    position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    animation: rotate-border 6s linear infinite; filter: blur(30px); opacity: 0.8;
+    z-index: -2; transition: background 1.2s ease; will-change: transform;
+}
+@keyframes rotate-border { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* ================= CARD STYLE ================= */
+.ambient-glow {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 100%; height: 100%; z-index: -1;
+    transition: background 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.login-card {
+    background: rgba(30, 41, 59, 0.75) !important; backdrop-filter: blur(25px);
+    border-radius: 32px !important; box-shadow: 0 0 0 0 transparent;
+    position: relative; z-index: 2; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ================= HEADER ================= */
+.logo-group { display: flex; justify-content: center; align-items: center; gap: 20px; }
+.logo-circle {
+    width: 90px; height: 90px; background: rgba(255,255,255,0.05); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.logo-circle:hover { transform: scale(1.1) rotate(5deg); }
+.logo-separator { width: 1px; height: 50px; background: rgba(255,255,255,0.1); }
+.title-tracking { letter-spacing: 1.5px; }
+.title-underline { width: 50px; height: 4px; border-radius: 2px; transition: background 0.8s ease; }
+
+/* ================= TAB SWITCHER ================= */
+.glass-switcher {
+    position: relative; background: rgba(0,0,0,0.3); border-radius: 20px; padding: 8px;
+    border: 1px solid rgba(255,255,255,0.05); overflow: hidden; transition: box-shadow 0.3s ease;
+}
+.switcher-active-bg {
+    position: absolute; top: 8px; left: 8px; width: calc(50% - 8px); bottom: 8px; border-radius: 16px;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.switcher-active-bg.slide-right { transform: translateX(100%); left: 4px; }
+.switcher-item {
+    flex: 1; position: relative; z-index: 2; background: transparent; border: none; color: #94a3b8;
+    padding: 12px; font-size: 1rem; font-weight: 500; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: color 0.4s ease;
+}
+.switcher-item.active { color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.2); font-weight: 600; }
+
+/* ================= TRANSITIONS & GRID (STABLE SIZE) ================= */
+.slide-up-text-enter-active,
+.slide-up-text-leave-active {
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.slide-up-text-enter-from { opacity: 0; transform: translateY(10px); }
+.slide-up-text-leave-to { opacity: 0; transform: translateY(-10px); }
+
+/* GRID STACK for Forms */
+.form-stack {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+.form-fields-wrapper {
+    grid-column: 1; /* Both entering and leaving sit here */
+    grid-row: 1;
+    width: 100%;
+}
+
+/* Slide Form Fields (Stacked) */
+.form-slide-enter-active,
+.form-slide-leave-active {
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+/* No position absolute needed if grid stack works */
+.form-slide-enter-from { opacity: 0; transform: translateX(60px); }
+.form-slide-leave-to { opacity: 0; transform: translateX(-60px); }
+
+/* ================= INPUTS & BUTTONS ================= */
+.glass-input :deep(.v-field) {
+    border-radius: 20px; background: rgba(20, 20, 20, 0.2) !important; 
+    border: 1px solid rgba(255, 255, 255, 0.08); color: white !important; box-shadow: none;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.glass-input :deep(.v-field__input) { padding-top: 18px; padding-bottom: 18px; min-height: 64px; font-size: 1.1rem; color: white !important; }
+.glass-input.input-focused :deep(.v-field) {
+    background: rgba(30, 30, 30, 0.4) !important; border-color: rgba(255,255,255,0.3);
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.05); transform: scale(1.01);
+}
+.login-btn {
+    border-radius: 20px; font-size: 1.2rem; transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.login-btn:hover { transform: translateY(-3px); filter: brightness(1.15); box-shadow: 0 15px 30px -10px rgba(0,0,0,0.4) !important; }
+
+/* ================= SUCCESS & ENTRANCE ================= */
+.success-card { background: rgba(16, 185, 129, 0.9) !important; backdrop-filter: blur(25px); }
+.success-icon-wrapper {
+    width: 120px; height: 120px; margin: 0 auto; background: rgba(255,255,255,0.2); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; position: relative;
+    animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.ripple-ring {
+    position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 3px solid rgba(255,255,255,0.5);
+    animation: ripple 2s infinite;
+}
+@keyframes ripple { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+@keyframes popIn { 0% { transform: scale(0); } 80% { transform: scale(1.1); } 100% { transform: scale(1); } }
+.content-entrance { animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; }
+.form-entrance { animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s backwards; will-change: transform, opacity; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
