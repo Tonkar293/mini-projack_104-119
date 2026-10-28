@@ -15,6 +15,7 @@ html, body, #__nuxt {
 }
 </style>
 
+
 <script setup>
 import { useTheme } from 'vuetify'
 import { onMounted } from 'vue'
